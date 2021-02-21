@@ -1,3 +1,10 @@
+grub2 (2.02+dfsg1-20+deb10u4) UNRELEASED; urgency=medium
+
+  * Fix broken advice in message when the postinst has to bail out (thanks
+    to Daniel Leidert for pointing out the problem).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 21 Feb 2021 00:05:27 +0000
+
 grub2 (2.02+dfsg1-20+deb10u3) buster; urgency=high
 
   [ Colin Watson ]
