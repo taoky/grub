@@ -381,6 +381,7 @@ handle_install_list (struct install_list *il, const char *val,
 
 static char **pubkeys;
 static size_t npubkeys;
+static char *sbat;
 static grub_compression_t compression;
 
 int
@@ -410,6 +411,12 @@ grub_install_parse (int key, char *arg)
 			  sizeof (pubkeys[0])
 			  * (npubkeys + 1));
       pubkeys[npubkeys++] = xstrdup (arg);
+      return 1;
+    case GRUB_INSTALL_OPTIONS_SBAT:
+      if (sbat)
+	free (sbat);
+
+      sbat = xstrdup (arg);
       return 1;
 
     case GRUB_INSTALL_OPTIONS_VERBOSITY:
@@ -566,9 +573,10 @@ grub_install_make_image_wrap_file (const char *dir, const char *prefix,
 
   grub_util_info ("grub-mkimage --directory '%s' --prefix '%s'"
 		  " --output '%s' "
+		  "--sbat '%s' "
 		  "--format '%s' --compression '%s' %s %s\n",
 		  dir, prefix,
-		  outname, mkimage_target,
+		  outname, sbat ? : "", mkimage_target,
 		  compnames[compression], note ? "--note" : "", s);
   free (s);
 
@@ -579,7 +587,7 @@ grub_install_make_image_wrap_file (const char *dir, const char *prefix,
   grub_install_generate_image (dir, prefix, fp, outname,
 			       modules.entries, memdisk_path,
 			       pubkeys, npubkeys, config_path, tgt,
-			       note, compression, NULL);
+			       note, compression, sbat);
   while (dc--)
     grub_install_pop_module ();
 }
