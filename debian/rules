@@ -3,6 +3,7 @@ SHELL		:= bash
 
 deb_version		:= $(shell dpkg-parsechangelog | sed -ne "s/^Version: \(.*\)/\1/p")
 upstream_version	:= $(shell echo $(deb_version) | sed -e "s/-[^-]*$$//")
+plain_upstream_version	:= $(shell echo $(upstream_version) | sed -e "s/+dfsg.*//")
 
 package		:= grub2
 
@@ -215,11 +216,17 @@ debian/stamps/build-grub-none debian/stamps/build-grub-efi-ia64 debian/stamps/bu
 
 debian/stamps/build-grub-efi-ia32 debian/stamps/build-grub-efi-amd64 debian/stamps/build-grub-efi-arm64: debian/stamps/build-%: debian/stamps/configure-% debian/stamps/build-grub-$(COMMON_PLATFORM)
 	dh_auto_build
+	grub_dir=`mktemp -d` ; \
+	sed -e "s/@DEB_VERSION@/$(deb_version)/g" \
+		-e "s/@UPSTREAM_VERSION@/$(plain_upstream_version)/g" \
+		<debian/sbat.$(SB_EFI_VENDOR).csv.in \
+		>$${grub_dir}/sbat.$(SB_EFI_VENDOR).csv; \
 	debian/build-efi-images \
 		obj/grub-$(COMMON_PLATFORM)/grub-mkimage \
 		obj/$(package)/grub-core \
 		obj/monolithic/$(package) \
-		$(DEB_HOST_ARCH) $(SB_PLATFORM) $(SB_EFI_NAME) $(SB_EFI_VENDOR)
+		$(DEB_HOST_ARCH) $(SB_PLATFORM) $(SB_EFI_NAME) \
+		$${grub_dir}/sbat.$(SB_EFI_VENDOR).csv $(SB_EFI_VENDOR)
 	touch $@
 
 debian/stamps/build-grub-xen-host-i386: PVBOOT_ARCH := i386
