@@ -29,6 +29,11 @@ EXTRA_DIST += grub-core/genemuinit.sh
 EXTRA_DIST += grub-core/genemuinitheader.sh
 
 EXTRA_DIST += grub-core/gnulib-fix-null-deref.diff
+EXTRA_DIST += grub-core/gnulib-fix-null-state-deref.diff
+EXTRA_DIST += grub-core/gnulib-fix-regcomp-uninit-token.diff
+EXTRA_DIST += grub-core/gnulib-fix-regexec-null-deref.diff
+EXTRA_DIST += grub-core/gnulib-fix-uninit-structure.diff
+EXTRA_DIST += grub-core/gnulib-fix-unused-value.diff
 EXTRA_DIST += grub-core/gnulib-fix-width.diff
 EXTRA_DIST += grub-core/gnulib-no-abort.diff
 EXTRA_DIST += grub-core/gnulib-no-gets.diff

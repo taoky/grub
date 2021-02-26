@@ -3641,7 +3641,7 @@ build_charclass_op (re_dfa_t *dfa, RE_TRANSLATE_TYPE trans,
   Idx alloc = 0;
 #endif /* not RE_ENABLE_I18N */
   reg_errcode_t ret;
-  re_token_t br_token;
+  re_token_t br_token = {0};
   bin_tree_t *tree;
 
   sbcset = (re_bitset_ptr_t) calloc (sizeof (bitset_t), 1);
@@ -3790,8 +3790,7 @@ static bin_tree_t *
 create_tree (re_dfa_t *dfa, bin_tree_t *left, bin_tree_t *right,
 	     re_token_type_t type)
 {
-  re_token_t t;
-  t.type = type;
+  re_token_t t = { .type = type };
   return create_token_tree (dfa, left, right, &t);
 }
 
