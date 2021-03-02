@@ -1,4 +1,4 @@
-grub2 (2.02+dfsg1-20+deb10u4) UNRELEASED; urgency=medium
+grub2 (2.02+dfsg1-20+deb10u4) buster-security; urgency=high
 
   * Fix broken advice in message when the postinst has to bail out (thanks
     to Daniel Leidert for pointing out the problem).
@@ -132,7 +132,7 @@ grub2 (2.02+dfsg1-20+deb10u4) UNRELEASED; urgency=medium
     - kern/mm: Fix grub_debug_calloc() compilation error
   * Add SBAT section (thanks, Chris Coulson).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 21 Feb 2021 00:05:27 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2021 22:50:45 +0000
 
 grub2 (2.02+dfsg1-20+deb10u3) buster; urgency=high
 
