@@ -1,3 +1,9 @@
+grub2 (2.02+dfsg1-20+deb10u4taoky3) UNRELEASED; urgency=medium
+
+  * Fix LVM unknown type handling bug  
+
+ -- taoky <taoky99@outlook.com>  Sun, 11 Apr 2021 02:11:10 +0800
+
 grub2 (2.02+dfsg1-20+deb10u4) buster-security; urgency=high
 
   * Fix broken advice in message when the postinst has to bail out (thanks

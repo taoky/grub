@@ -778,6 +778,28 @@ error_parsing_metadata:
 		      if (p2)
 			*p2 ='"';
 #endif
+		      /* how many unclosed cruly brackets are we in? */
+		      int brackets_nested = 0;
+		      /* whether we are in double quotes (string)? */
+		      /* and currently p is inside double quotes */
+		      int is_in_string = ~0;
+		      while (++p)
+			{
+			  if (*p == '"')
+			    is_in_string = ~is_in_string;
+			  else if (*p == '{' && is_in_string == 0)
+			    brackets_nested += 1;
+			  else if (*p == '}' && is_in_string == 0)
+			    {
+			      if (brackets_nested == 0)
+				{
+				  p--;
+				  break;
+				}
+			      else
+				brackets_nested -= 1;
+			    }
+			}
 		      /* Found a non-supported type, give up and move on. */
 		      skip_lv = 1;
 		      break;
