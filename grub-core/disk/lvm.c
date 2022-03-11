@@ -253,7 +253,7 @@ error_parsing_metadata:
 
   p = q = (char *)ptr;
 
-  if (grub_add ((grub_size_t)metadatabuf, (grub_size_t)mda_size, &ptr))
+  if (grub_add (ptr, (grub_size_t)grub_le_to_cpu64 (rlocn->size), &ptr))
     goto error_parsing_metadata;
 
   mda_end = (char *)ptr;
